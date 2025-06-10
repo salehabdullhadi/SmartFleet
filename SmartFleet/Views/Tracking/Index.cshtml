@@ -1,0 +1,75 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Fleet Tracking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <link rel="stylesheet" href="~/css/pages/tracking/tracking.css" />
+
+</head>
+<body>
+
+    <div id="content">
+        <div id="sidebar">
+            <input type="text" class="search-bar" placeholder="Search vehicles..." oninput="filterVehicles()">
+            <table id="vehicleTable">
+                <thead>
+                    <tr>
+                        <th>Vehicle</th>
+                        <th>Speed</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr onclick="selectVehicle('Bus')">
+                        <td>Bus</td>
+                        <td>128 kph</td>
+                        <td>Moving</td>
+                    </tr>
+                    <tr onclick="selectVehicle('Car')">
+                        <td>Car</td>
+                        <td>97 kph</td>
+                        <td>Moving</td>
+                    </tr>
+                    <tr onclick="selectVehicle('Truck')">
+                        <td>Truck</td>
+                        <td>87 kph</td>
+                        <td>Moving</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="map"></div> 
+    </div>
+
+    <div id="info-panel">
+        <div class="info-section">
+            <h3>Data</h3>
+            <div class="info-row"><span>Driver:</span><span>Andrew Andrew</span></div>
+            <div class="info-row"><span>Engine hours:</span><span>42453 h 28 min 5 s</span></div>
+            <div class="info-row"><span>Engine ID:</span><span>6545424558</span></div>
+            <div class="info-row"><span>Engine type:</span><span>Petrol</span></div>
+        </div>
+        <div class="info-section">
+            <h3>Details</h3>
+            <div class="info-row"><span>Model:</span><span>Plaxton Elite</span></div>
+            <div class="info-row"><span>Odometer:</span><span>5123803 km</span></div>
+            <div class="info-row"><span>Plate:</span><span>PLA987</span></div>
+            <div class="info-row"><span>Status:</span><span>Moving</span></div>
+        </div>
+        <div class="info-section position">
+            <h3>Position</h3>
+            <div class="info-row"><span>Position:</span><span>52.402509°, 9.869143°</span></div>
+            <div class="info-row"><span>Speed:</span><span>100 kph</span></div>
+            <div class="info-row"><span>Address:</span><span>A 2, Misburg-Nord, Misburg-A...</span></div>
+            <div class="info-row"><span>Altitude:</span><span>61 m</span></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script src="~/js/tracking.js"></script>
+</body>
+</html>
