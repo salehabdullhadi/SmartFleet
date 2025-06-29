@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmartFleet.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class sayed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -122,7 +122,7 @@ namespace SmartFleet.Migrations
                     VehicleImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LicensePlate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TotalDistanceTraveled = table.Column<decimal>(type: "decimal(9,6)", precision: 12, scale: 2, nullable: false),
+                    TotalDistanceTraveled = table.Column<decimal>(type: "decimal(9,6)", precision: 12, scale: 7, nullable: false),
                     RegistrationExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -237,7 +237,8 @@ namespace SmartFleet.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     LicenseNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LicenseExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DriverStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DriverStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DrowsinessCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -339,6 +340,7 @@ namespace SmartFleet.Migrations
                     RepairStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Priority = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RepairedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>

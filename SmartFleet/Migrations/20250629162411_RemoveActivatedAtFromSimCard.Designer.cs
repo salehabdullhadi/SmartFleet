@@ -12,8 +12,8 @@ using SmartFleet.Data;
 namespace SmartFleet.Migrations
 {
     [DbContext(typeof(SmartFleetContext))]
-    [Migration("20250628125518_Fix")]
-    partial class Fix
+    [Migration("20250629162411_RemoveActivatedAtFromSimCard")]
+    partial class RemoveActivatedAtFromSimCard
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -340,6 +340,9 @@ namespace SmartFleet.Migrations
                     b.Property<string>("ReportedBy")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("VehicleId")
                         .HasColumnType("int");
 
@@ -448,9 +451,6 @@ namespace SmartFleet.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("ActivatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Carrier")
                         .IsRequired()
@@ -562,7 +562,7 @@ namespace SmartFleet.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TotalDistanceTraveled")
-                        .HasPrecision(12, 6)
+                        .HasPrecision(12, 7)
                         .HasColumnType("decimal(9, 6)");
 
                     b.Property<string>("Type")
@@ -630,6 +630,9 @@ namespace SmartFleet.Migrations
                     b.Property<string>("DriverStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DrowsinessCount")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("LicenseExpiryDate")
                         .HasColumnType("datetime2");
