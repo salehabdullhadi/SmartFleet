@@ -59,8 +59,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\pages\tracking\tracking.css" />
-    <None Include="wwwroot\js\tracking.js" />
+    <Content Include="wwwroot\css\pages\tracking\tracking.css" />
+    <Content Include="wwwroot\js\tracking.js" />
   </ItemGroup>
 
 </Project>
