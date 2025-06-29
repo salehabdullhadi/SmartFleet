@@ -26,7 +26,12 @@ namespace SmartFleet.Tests
             var userManager = new Mock<Microsoft.AspNetCore.Identity.UserManager<ApplicationUser>>(
                 new Mock<Microsoft.AspNetCore.Identity.IUserStore<ApplicationUser>>().Object,
                 null, null, null, null, null, null, null, null);
-            return new HomeController(context, userManager.Object);
+            var signInManager = new Mock<Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser>>(
+                userManager.Object,
+                new Mock<Microsoft.AspNetCore.Http.IHttpContextAccessor>().Object,
+                new Mock<Microsoft.AspNetCore.Identity.IUserClaimsPrincipalFactory<ApplicationUser>>().Object,
+                null, null, null, null);
+            return new HomeController(context, userManager.Object, signInManager.Object);
         }
 
         [Fact]
