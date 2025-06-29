@@ -7,6 +7,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/pages/vehicle/details.css">
+    <link rel="stylesheet" href="~/css/pages/trip/searchable-dropdowns.css">
+    <script src="~/js/trip/searchable-dropdowns.js"></script>
 </head>
 
 <div class="main-container">
@@ -73,10 +75,6 @@
                                     @Model.SimCard.Status.ToString().Replace("_", " ")
                                 </span>
                             </span>
-                        </div>
-                        <div class="simcard-item">
-                            <span class="simcard-label">Activated At:</span>
-                            <span class="simcard-value">@Model.SimCard.ActivatedAt.ToString("dd/MM/yyyy HH:mm")</span>
                         </div>
                     </div>
                     
@@ -156,6 +154,8 @@
 </div>
 
 <script>
+let simCardSearchableDropdown = null;
+
 function showAssignmentForm() {
     console.log('showAssignmentForm called');
     document.getElementById('assignment-form').style.display = 'block';
@@ -165,6 +165,19 @@ function showAssignmentForm() {
 function hideAssignmentForm() {
     console.log('hideAssignmentForm called');
     document.getElementById('assignment-form').style.display = 'none';
+    
+    // Destroy searchable dropdown if it exists
+    const simCardSelect = document.getElementById('simCardId');
+    if (simCardSearchableDropdown && simCardSelect) {
+        // Remove the wrapper and restore original select
+        const wrapper = simCardSelect.parentNode.querySelector('.searchable-dropdown-wrapper');
+        if (wrapper) {
+            simCardSelect.style.display = '';
+            wrapper.parentNode.insertBefore(simCardSelect, wrapper);
+            wrapper.remove();
+        }
+        simCardSearchableDropdown = null;
+    }
 }
 
 function loadAvailableSimCards() {
@@ -188,11 +201,51 @@ function loadAvailableSimCards() {
                 option.textContent = `${simCard.simNumber} (${simCard.carrier})`;
                 select.appendChild(option);
             });
+            
+            // Initialize searchable dropdown after options are loaded
+            initializeSimCardSearchableDropdown();
         })
         .catch(error => {
             console.error('Error loading SimCards:', error);
             alert('Error loading available SimCards. Please try again.');
         });
+}
+
+function initializeSimCardSearchableDropdown() {
+    const simCardSelect = document.getElementById('simCardId');
+    if (!simCardSelect) {
+        console.error('SimCard select not found for searchable dropdown initialization');
+        return;
+    }
+    
+    // Check if SearchableDropdown class is available
+    if (typeof SearchableDropdown === 'undefined') {
+        console.warn('SearchableDropdown class not found. Loading script...');
+        // Load the script dynamically if not already loaded
+        const script = document.createElement('script');
+        script.src = '/js/trip/searchable-dropdowns.js';
+        script.onload = () => {
+            createSimCardSearchableDropdown();
+        };
+        document.head.appendChild(script);
+    } else {
+        createSimCardSearchableDropdown();
+    }
+}
+
+function createSimCardSearchableDropdown() {
+    const simCardSelect = document.getElementById('simCardId');
+    if (!simCardSelect) return;
+    
+    try {
+        simCardSearchableDropdown = new SearchableDropdown(simCardSelect, {
+            placeholder: 'Type to search SimCards...',
+            minLength: 1
+        });
+        console.log('Searchable dropdown initialized for SimCard select');
+    } catch (error) {
+        console.error('Error initializing searchable dropdown:', error);
+    }
 }
 
 function removeSimCard() {

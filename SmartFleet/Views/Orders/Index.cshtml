@@ -222,8 +222,8 @@
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-delete">
-                                <i class="fas fa-trash-alt"></i> Delete
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-details">
+                                <i class="fas fa-info-circle"></i> Details
                             </a>
                             @if (item.Status == SmartFleet.Models.OrderState.Pending && item.UserId == Model.CurrentUserId)
                             {
@@ -233,6 +233,9 @@
                                     </button>
                                 </form>
                             }
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
                         }
                         else
                         {
@@ -241,16 +244,19 @@
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
+                            }
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-details">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                            @if (item.Status == SmartFleet.Models.OrderState.Pending)
+                            {
                                 <form asp-action="Cancel" asp-route-id="@item.Id" method="post" style="display: inline;">
                                     <button type="submit" class="btn btn-cancel" onclick="return confirm('Are you sure you want to cancel this order?')">
-                                        <i class="fas fa-times"></i> Cancel
+                                        <i class="fas fa-times" style="color: white;!important"></i> <span style="color: white;!important">Cancel</span>
                                     </button>
                                 </form>
                             }
                         }
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-details btn-details-vehicle-style" title="Details">
-                            <i class="fas fa-info-circle"></i> Details
-                        </a>
                     </td>
                 </tr>
             }

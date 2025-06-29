@@ -38,32 +38,36 @@
     font-weight: bold;
     text-decoration: none;
     display: inline-block;
+    margin-right: 4px;
+    font-size: 0.85em;
+    border: none;
+    transition: background 0.2s, color 0.2s;
 }
 
 .btn-edit, .btn-details, .btn-delete, .btn-approve, .btn-cancel, .btn-reject {
-    font-size: 0.85em;
-    padding: 2px 7px;
-    border-radius: 4px;
+    background-color: rgb(235, 235, 235);
+    color: black;
+    padding: 8px 15px;
+    border-radius: 5px;
     margin-right: 4px;
-    color: #fff !important;
-    border: none;
     font-weight: 500;
     transition: background 0.2s, color 0.2s;
 }
 
-.btn-edit { background-color: #007bff; }
-.btn-edit:hover { background-color: #0056b3; }
+.btn-edit { background-color: rgb(235, 235, 235); color: black; }
+.btn-edit:hover { background-color: #d1d1d1; }
 
-.btn-details { background-color: #6c757d; }
-.btn-details:hover { background-color: #495057; }
+.btn-details { background-color: rgb(235, 235, 235); color: black; }
+.btn-details:hover { background-color: #d1d1d1; }
 
-.btn-delete { background-color: #e63946; }
-.btn-delete:hover { background-color: #b71c1c; }
+.btn-delete { background-color: rgb(235, 235, 235); color: black; }
+.btn-delete:hover { background-color: #d1d1d1; }
+.btn-delete i { color: red; }
 
-.btn-approve { background-color: #16b416; }
+.btn-approve { background-color: #16b416; color: white; }
 .btn-approve:hover { background-color: #128a12; }
 
-.btn-cancel, .btn-reject { background-color: #ff9800; }
+.btn-cancel, .btn-reject { background-color: #ff9800; color: white; }
 .btn-cancel:hover, .btn-reject:hover { background-color: #b26a00; }
 
 .btn-details.disabled, .btn-delete.disabled, .btn-edit.disabled, .btn-approve.disabled, .btn-cancel.disabled, .btn-reject.disabled {
