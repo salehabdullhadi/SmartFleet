@@ -56,9 +56,4 @@
     <Folder Include="wwwroot\assets\DriversImages\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="Views/**/*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
-    <Content Include="wwwroot/**/*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
-  </ItemGroup>
-
 </Project>
