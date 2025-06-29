@@ -23,8 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\css\pages\tracking\tracking.css" />
-    <Content Remove="wwwroot\js\tracking.js" />
     <Content Remove="wwwroot\lib\bootstrap\LICENSE" />
   </ItemGroup>
 
@@ -56,11 +54,6 @@
     <Folder Include="wwwroot\assets\images\profiles\" />
     <Folder Include="wwwroot\assets\videos\" />
     <Folder Include="wwwroot\assets\DriversImages\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="wwwroot\css\pages\tracking\tracking.css" />
-    <Content Include="wwwroot\js\tracking.js" />
   </ItemGroup>
 
 </Project>
