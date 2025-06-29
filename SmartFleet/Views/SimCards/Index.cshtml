@@ -7,6 +7,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/pages/simcard/list.css">
+    <link rel="stylesheet" href="~/css/pages/trip/searchable-dropdowns.css">
+    <script src="~/js/trip/searchable-dropdowns.js"></script>
 
        <style>
         button {
@@ -202,6 +204,7 @@
 let currentSimCardId = null;
 let currentSimNumber = null;
 let isReassignMode = false;
+let vehicleSearchableDropdown = null;
 
 function assignToVehicle(simCardId, simNumber, isReassign) {
     console.log('=== assignToVehicle START ===');
@@ -284,6 +287,18 @@ function closeAssignmentModal() {
         console.log('Vehicle select cleared');
     }
     
+    // Destroy searchable dropdown if it exists
+    if (vehicleSearchableDropdown) {
+        // Remove the wrapper and restore original select
+        const wrapper = vehicleSelect.parentNode.querySelector('.searchable-dropdown-wrapper');
+        if (wrapper) {
+            vehicleSelect.style.display = '';
+            wrapper.parentNode.insertBefore(vehicleSelect, wrapper);
+            wrapper.remove();
+        }
+        vehicleSearchableDropdown = null;
+    }
+    
     // Clear state
     currentSimCardId = null;
     currentSimNumber = null;
@@ -340,6 +355,9 @@ function loadAvailableVehicles() {
             });
             
             console.log('Total options in select:', select.options.length);
+            
+            // Initialize searchable dropdown after options are loaded
+            initializeSearchableDropdown();
         })
         .catch(error => {
             console.error('Error loading vehicles:', error);
@@ -347,6 +365,43 @@ function loadAvailableVehicles() {
         });
     
     console.log('=== loadAvailableVehicles END ===');
+}
+
+function initializeSearchableDropdown() {
+    const vehicleSelect = document.getElementById('vehicleSelect');
+    if (!vehicleSelect) {
+        console.error('Vehicle select not found for searchable dropdown initialization');
+        return;
+    }
+    
+    // Check if SearchableDropdown class is available
+    if (typeof SearchableDropdown === 'undefined') {
+        console.warn('SearchableDropdown class not found. Loading script...');
+        // Load the script dynamically if not already loaded
+        const script = document.createElement('script');
+        script.src = '/js/trip/searchable-dropdowns.js';
+        script.onload = () => {
+            createSearchableDropdown();
+        };
+        document.head.appendChild(script);
+    } else {
+        createSearchableDropdown();
+    }
+}
+
+function createSearchableDropdown() {
+    const vehicleSelect = document.getElementById('vehicleSelect');
+    if (!vehicleSelect) return;
+    
+    try {
+        vehicleSearchableDropdown = new SearchableDropdown(vehicleSelect, {
+            placeholder: 'Type to search vehicles...',
+            minLength: 1
+        });
+        console.log('Searchable dropdown initialized for vehicle select');
+    } catch (error) {
+        console.error('Error initializing searchable dropdown:', error);
+    }
 }
 
 // Handle form submission
