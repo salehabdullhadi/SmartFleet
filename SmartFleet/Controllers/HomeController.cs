@@ -15,11 +15,13 @@ namespace SmartFleet.Controllers
     {
         private readonly SmartFleetContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public HomeController(SmartFleetContext context, UserManager<ApplicationUser> userManager)
+        public HomeController(SmartFleetContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> Index()
@@ -28,6 +30,15 @@ namespace SmartFleet.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var currentUser = await _userManager.GetUserAsync(User);
+                
+                // Check if currentUser is null to prevent ArgumentNullException
+                if (currentUser == null)
+                {
+                    // User is authenticated but not found in database - sign them out
+                    await _signInManager.SignOutAsync();
+                    return RedirectToAction("Login", "Account");
+                }
+                
                 var userRoles = await _userManager.GetRolesAsync(currentUser);
 
                 if (userRoles.Contains("NormalUser"))
