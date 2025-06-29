@@ -48,12 +48,12 @@ namespace SmartFleet.Controllers
             }
 
             var userRoles = await _userManager.GetRolesAsync(currentUser);
-            var isCommissioner = userRoles.Any(r => r.Equals("commissioner", StringComparison.OrdinalIgnoreCase));
-            var isFleetManager = userRoles.Any(r => r.Equals("FleetManager", StringComparison.OrdinalIgnoreCase));
-            var isSysSupport = userRoles.Any(r => r.Equals("SysSupport", StringComparison.OrdinalIgnoreCase));
-            var isDriver = userRoles.Any(r => r.Equals("Driver", StringComparison.OrdinalIgnoreCase));
-            var isMaintenanceManager = userRoles.Any(r => r.Equals("MaintenanceManager", StringComparison.OrdinalIgnoreCase));
-            var isNormalUser = userRoles.Any(r => r.Equals("NormalUser", StringComparison.OrdinalIgnoreCase));
+            var isCommissioner = userRoles.Contains("commissioner");
+            var isFleetManager = userRoles.Contains("FleetManager");
+            var isSysSupport = userRoles.Contains("SysSupport");
+            var isDriver = userRoles.Contains("Driver");
+            var isMaintenanceManager = userRoles.Contains("MaintenanceManager");
+            var isNormalUser = userRoles.Contains("NormalUser");
 
             // Check access permissions
             if (!await _userRoleService.HasAccessToOrders(currentUser))
@@ -202,12 +202,12 @@ namespace SmartFleet.Controllers
             }
 
             var userRoles = await _userManager.GetRolesAsync(currentUser);
-            var isCommissioner = userRoles.Any(r => r.Equals("commissioner", StringComparison.OrdinalIgnoreCase));
-            var isFleetManager = userRoles.Any(r => r.Equals("FleetManager", StringComparison.OrdinalIgnoreCase));
-            var isSysSupport = userRoles.Any(r => r.Equals("SysSupport", StringComparison.OrdinalIgnoreCase));
-            var isDriver = userRoles.Any(r => r.Equals("Driver", StringComparison.OrdinalIgnoreCase));
-            var isMaintenanceManager = userRoles.Any(r => r.Equals("MaintenanceManager", StringComparison.OrdinalIgnoreCase));
-            var isNormalUser = userRoles.Any(r => r.Equals("NormalUser", StringComparison.OrdinalIgnoreCase));
+            var isCommissioner = userRoles.Contains("commissioner");
+            var isFleetManager = userRoles.Contains("FleetManager");
+            var isSysSupport = userRoles.Contains("SysSupport");
+            var isDriver = userRoles.Contains("Driver");
+            var isMaintenanceManager = userRoles.Contains("MaintenanceManager");
+            var isNormalUser = userRoles.Contains("NormalUser");
 
             // Check access permissions
             if (!await _userRoleService.HasAccessToOrders(currentUser))
@@ -406,7 +406,7 @@ namespace SmartFleet.Controllers
 
             // For NormalUser - only allow editing their own orders
             var userRoles = await _userManager.GetRolesAsync(currentUser);
-            var isNormalUser = userRoles.Any(r => r.Equals("NormalUser", StringComparison.OrdinalIgnoreCase));
+            var isNormalUser = userRoles.Contains("NormalUser");
             if (isNormalUser && order.UserId != currentUser.Id)
             {
                 TempData["ErrorMessage"] = "You can only edit your own orders.";
@@ -444,7 +444,7 @@ namespace SmartFleet.Controllers
 
             // For NormalUser - only allow editing their own orders
             var userRoles = await _userManager.GetRolesAsync(currentUser);
-            var isNormalUser = userRoles.Any(r => r.Equals("NormalUser", StringComparison.OrdinalIgnoreCase));
+            var isNormalUser = userRoles.Contains("NormalUser");
             if (isNormalUser && order.UserId != currentUser.Id)
             {
                 TempData["ErrorMessage"] = "You can only edit your own orders.";
@@ -490,9 +490,9 @@ namespace SmartFleet.Controllers
             }
 
             var userRoles = await _userManager.GetRolesAsync(currentUser);
-            var isNormalUser = userRoles.Any(r => r.Equals("NormalUser", StringComparison.OrdinalIgnoreCase));
-            var isFleetManager = userRoles.Any(r => r.Equals("FleetManager", StringComparison.OrdinalIgnoreCase));
-            var isSysSupport = userRoles.Any(r => r.Equals("SysSupport", StringComparison.OrdinalIgnoreCase));
+            var isNormalUser = userRoles.Contains("NormalUser");
+            var isFleetManager = userRoles.Contains("FleetManager");
+            var isSysSupport = userRoles.Contains("SysSupport");
 
             var order = await _context.Orders
                 .Include(o => o.User)
@@ -531,9 +531,9 @@ namespace SmartFleet.Controllers
             }
 
             var userRoles = await _userManager.GetRolesAsync(currentUser);
-            var isNormalUser = userRoles.Any(r => r.Equals("NormalUser", StringComparison.OrdinalIgnoreCase));
-            var isFleetManager = userRoles.Any(r => r.Equals("FleetManager", StringComparison.OrdinalIgnoreCase));
-            var isSysSupport = userRoles.Any(r => r.Equals("SysSupport", StringComparison.OrdinalIgnoreCase));
+            var isNormalUser = userRoles.Contains("NormalUser");
+            var isFleetManager = userRoles.Contains("FleetManager");
+            var isSysSupport = userRoles.Contains("SysSupport");
 
             var order = await _context.Orders.FindAsync(id);
             if (order == null)
@@ -592,7 +592,7 @@ namespace SmartFleet.Controllers
 
             // For NormalUser - only allow cancelling their own orders
             var userRoles = await _userManager.GetRolesAsync(currentUser);
-            var isNormalUser = userRoles.Any(r => r.Equals("NormalUser", StringComparison.OrdinalIgnoreCase));
+            var isNormalUser = userRoles.Contains("NormalUser");
             if (isNormalUser && order.UserId != currentUser.Id)
             {
                 TempData["ErrorMessage"] = "You can only cancel your own orders.";
