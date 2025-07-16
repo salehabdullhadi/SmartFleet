@@ -122,6 +122,59 @@ namespace SmartFleet.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // AJAX: Delete Geofence
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteGeofenceAjax(int id, string forceDelete = "false")
+        {
+            try
+            {
+                var geofence = await _context.Geofences.FindAsync(id);
+                if (geofence == null)
+                {
+                    return Json(new { success = false, message = "Geofence not found." });
+                }
+
+                // Check if any vehicles are assigned to this geofence
+                var assignedVehicles = await _context.Vehicles.Where(v => v.GeofenceId == id).ToListAsync();
+                bool shouldForceDelete = forceDelete?.ToLower() == "true";
+                
+                if (assignedVehicles.Count > 0 && !shouldForceDelete)
+                {
+                    return Json(new { 
+                        success = false, 
+                        hasAssignedVehicles = true,
+                        assignedCount = assignedVehicles.Count,
+                        message = $"This geofence is assigned to {assignedVehicles.Count} vehicle(s). Do you want to unassign them and delete the geofence?" 
+                    });
+                }
+
+                // If force delete or no assigned vehicles, proceed with deletion
+                if (assignedVehicles.Count > 0)
+                {
+                    // Unassign all vehicles from this geofence
+                    foreach (var vehicle in assignedVehicles)
+                    {
+                        vehicle.GeofenceId = null;
+                        _context.Update(vehicle);
+                    }
+                }
+
+                _context.Geofences.Remove(geofence);
+                await _context.SaveChangesAsync();
+                
+                var message = assignedVehicles.Count > 0 
+                    ? $"Geofence deleted successfully. {assignedVehicles.Count} vehicle(s) unassigned."
+                    : "Geofence deleted successfully.";
+                
+                return Json(new { success = true, message = message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "An error occurred while deleting the geofence." });
+            }
+        }
+
         // GET: Geofences/Assign/5
         public async Task<IActionResult> Assign(int? id, string searchPlate)
         {
@@ -149,6 +202,20 @@ namespace SmartFleet.Controllers
             _context.Update(vehicle);
             await _context.SaveChangesAsync();
             TempData["AssignmentSuccess"] = "Vehicle assigned to geofence successfully.";
+            return RedirectToAction("Assign", new { id = geofenceId });
+        }
+
+        // POST: Geofences/UnassignVehicle
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UnassignVehicle(int geofenceId, int vehicleId)
+        {
+            var vehicle = await _context.Vehicles.FindAsync(vehicleId);
+            if (vehicle == null) return NotFound();
+            vehicle.GeofenceId = null;
+            _context.Update(vehicle);
+            await _context.SaveChangesAsync();
+            TempData["AssignmentSuccess"] = "Vehicle unassigned from geofence successfully.";
             return RedirectToAction("Assign", new { id = geofenceId });
         }
     }

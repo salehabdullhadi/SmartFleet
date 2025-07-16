@@ -25,9 +25,10 @@ namespace SmartFleet.Controllers
         private readonly IUserRoleService _userRoleService;
         private readonly IPaginationService _paginationService;
         private readonly ISearchService _searchService;
+        private readonly IPdfService _pdfService;
 
         public OrdersController(SmartFleetContext context, UserManager<ApplicationUser> userManager, 
-            INotificationService notificationService, IUserRoleService userRoleService, IPaginationService paginationService, ISearchService searchService)
+            INotificationService notificationService, IUserRoleService userRoleService, IPaginationService paginationService, ISearchService searchService, IPdfService pdfService)
         {
             _context = context;
             _userManager = userManager;
@@ -35,6 +36,7 @@ namespace SmartFleet.Controllers
             _userRoleService = userRoleService;
             _paginationService = paginationService;
             _searchService = searchService;
+            _pdfService = pdfService;
         }
 
         // GET: Orders
@@ -293,43 +295,55 @@ namespace SmartFleet.Controllers
             return View();
         }
 
-        // POST: Orders/Create
+                // POST: Orders/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,VehicleType,PassengerCount,StartLocation,Destination,TripStartDate,TripEndDate,Reason,CreatedAt")] Order order)
+        public async Task<IActionResult> Create([Bind("Id,VehicleType,PassengerCount,StartLocation,Destination,TripStartDate,TripEndDate,Reason")] Order order)
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser == null)
+            try
             {
-                return RedirectToAction("Login", "Account");
-            }
+                var currentUser = await _userManager.GetUserAsync(User);
+                
+                if (currentUser == null)
+                {
+                    TempData["ErrorMessage"] = "يرجى تسجيل الدخول أولاً";
+                    return RedirectToAction("Login", "Account");
+                }
 
-            // Check if user can create orders
-            if (!await _userRoleService.CanCreateOrder(currentUser))
-            {
-                TempData["ErrorMessage"] = "You don't have permission to create orders.";
+                // Check if user can create orders
+                if (!await _userRoleService.CanCreateOrder(currentUser))
+                {
+                    TempData["ErrorMessage"] = "ليس لديك صلاحية لإنشاء طلبات";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                // Basic validation
+                if (string.IsNullOrEmpty(order.StartLocation) || string.IsNullOrEmpty(order.Destination) 
+                    || string.IsNullOrEmpty(order.Reason) || order.PassengerCount <= 0)
+                {
+                    TempData["ErrorMessage"] = "يرجى ملء جميع الحقول المطلوبة";
+                    return View(order);
+                }
+
+                // Set default values
+                order.Status = OrderState.Pending; 
+                order.UserId = currentUser.Id;
+                order.CreatedAt = DateTime.Now;
+
+                _context.Add(order);
+                await _context.SaveChangesAsync();
+
+                // Send notifications
+                await SendOrderCreationNotifications(order, currentUser);
+
+                TempData["SuccessMessage"] = "تم إنشاء الطلب بنجاح";
                 return RedirectToAction(nameof(Index));
             }
-
-            order.Status = OrderState.Pending; 
-            order.UserId = currentUser.Id;
-
-            _context.Add(order);
-            await _context.SaveChangesAsync();
-
-            // Send notifications to SysSupport, FleetManager, and Commissioner
-            await SendOrderCreationNotifications(order, currentUser);
-
-            CookieOptions option = new CookieOptions
+            catch (Exception ex)
             {
-                Expires = DateTime.UtcNow.AddHours(1), 
-                HttpOnly = true, 
-                Secure = true
-            };
-
-            Response.Cookies.Append("OrderId", order.Id.ToString(), option);
-
-            return RedirectToAction(nameof(Index));
+                TempData["ErrorMessage"] = "حدث خطأ أثناء إنشاء الطلب: " + ex.Message;
+                return View(order);
+            }
         }
 
         // Private method to send notifications for order creation
@@ -769,6 +783,58 @@ namespace SmartFleet.Controllers
                 return "Available";
             else
                 return "Not Available";
+        }
+
+        // PDF generation is now handled by frontend jsPDF library
+        // No need for server-side PDF generation for form data
+
+        // GET: Orders/DownloadOrderPdf/5
+        public async Task<IActionResult> DownloadOrderPdf(int id)
+        {
+            try
+            {
+                var currentUser = await _userManager.GetUserAsync(User);
+                if (currentUser == null)
+                {
+                    return BadRequest("User not authenticated");
+                }
+
+                // Get the order from database
+                var order = await _context.Orders
+                    .Include(o => o.User)
+                    .FirstOrDefaultAsync(o => o.Id == id);
+
+                if (order == null)
+                {
+                    return NotFound("Order not found");
+                }
+
+                // Check permissions
+                var userRoles = await _userManager.GetRolesAsync(currentUser);
+                var isNormalUser = userRoles.Contains("NormalUser");
+                
+                if (isNormalUser && order.UserId != currentUser.Id)
+                {
+                    return BadRequest("You can only download PDF for your own orders");
+                }
+
+                // Generate PDF
+                var pdfBytes = _pdfService.GenerateOrderPdf(order);
+                
+                if (pdfBytes == null || pdfBytes.Length == 0)
+                {
+                    return BadRequest("Failed to generate PDF");
+                }
+                
+                // Return PDF as file
+                var fileName = $"Order_{order.Id}_{DateTime.Now:yyyyMMdd}.pdf";
+                return File(pdfBytes, "application/pdf", fileName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"PDF Generation Error: {ex.Message}");
+                return BadRequest($"Error generating PDF: {ex.Message}");
+            }
         }
 
         private bool OrderExists(int id)

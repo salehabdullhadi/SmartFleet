@@ -57,6 +57,102 @@
         color: black;
     }
 
+/* Driver Actions Container */
+.driver-actions {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Action Buttons */
+.btn-action {
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    border: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    min-width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.btn-action.edit {
+    background: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #bbdefb;
+}
+
+.btn-action.edit:hover {
+    background: #1976d2;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.btn-action.details {
+    background: #f3e5f5;
+    color: #7b1fa2;
+    border: 1px solid #ce93d8;
+}
+
+.btn-action.details:hover {
+    background: #7b1fa2;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.btn-action.timeline {
+    background: #e8f5e8;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.btn-action.timeline:hover {
+    background: #2e7d32;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.btn-action.delete {
+    background: #ffebee;
+    color: #d32f2f;
+    border: 1px solid #ffcdd2;
+}
+
+.btn-action.delete:hover {
+    background: #d32f2f;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Icon sizes in action buttons */
+.btn-action i {
+    font-size: 14px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .driver-actions {
+        gap: 4px;
+    }
+    
+    .btn-action {
+        min-width: 28px;
+        height: 28px;
+        padding: 4px 6px;
+        font-size: 12px;
+    }
+    
+    .btn-action i {
+        font-size: 12px;
+    }
+}
+
 .deleted_icon {
     font-size: 20px;
     font-weight: bold;

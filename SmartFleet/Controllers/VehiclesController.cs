@@ -464,6 +464,45 @@ namespace SmartFleet.Controllers
             return View(vehicle);
         }
 
+        // GET: Vehicles/Timeline/5
+        public async Task<IActionResult> Timeline(int? id)
+        {
+            ViewData["PageTitle"] = "Vehicles";
+            
+            // Check if user has access to vehicles
+            if (!await HasAccessToVehiclesAsync())
+            {
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var vehicle = await _context.Vehicles
+                .Include(v => v.Trips)
+                    .ThenInclude(t => t.Driver)
+                .Include(v => v.Trips)
+                    .ThenInclude(t => t.Order)
+                .Include(v => v.Trips)
+                    .ThenInclude(t => t.CreatedByUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            // Sort trips by creation date (newest first)
+            if (vehicle.Trips != null)
+            {
+                vehicle.Trips = vehicle.Trips.OrderByDescending(t => t.CreatedAt).ToList();
+            }
+
+            return View(vehicle);
+        }
+
         // POST: Vehicles/AssignSimCard
         [HttpPost]
         [ValidateAntiForgeryToken]

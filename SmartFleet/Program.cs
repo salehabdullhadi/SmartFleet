@@ -132,6 +132,9 @@ namespace SmartFleet
 
             builder.Services.AddScoped<IPaginationService, PaginationService>();
             builder.Services.AddScoped<ISearchService, SearchService>();
+            
+            // PDF Service
+            builder.Services.AddScoped<IPdfService, PdfService>();
 
             // Add SignalR services
             builder.Services.AddSignalR();

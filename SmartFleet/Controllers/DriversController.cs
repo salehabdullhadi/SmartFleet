@@ -122,6 +122,37 @@ namespace SmartFleet.Controllers
             return View(driver);
         }
 
+        // GET: Drivers/Timeline/5
+        public async Task<IActionResult> Timeline(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // First get the driver
+            var driver = await _context.Drivers.FirstOrDefaultAsync(d => d.Id == id);
+            
+            if (driver == null)
+            {
+                return NotFound();
+            }
+
+            // Then load trips with all related data
+            var trips = await _context.Trips
+                .Where(t => t.DriverId == id)
+                .Include(t => t.Vehicle)
+                .Include(t => t.Order)
+                .Include(t => t.CreatedByUser)
+                .ToListAsync();
+
+            // Assign trips to driver
+            driver.Trips = trips;
+
+            ViewData["PageTitle"] = "Driver Timeline";
+            return View(driver);
+        }
+
         // GET: Drivers/Create
         public IActionResult Create()
         {

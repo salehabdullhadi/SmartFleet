@@ -11,7 +11,13 @@
 <link rel="stylesheet" href="/css/pages/geofence/assign.css" />
 <div class="container my-4">
     <div class="geofence-assign-card">
-        <h1 class="mb-3 text-center" style="font-family: 'Montserrat', 'Lato', Arial, sans-serif; font-weight: 600; font-size: 2rem; color: #222;">Assign Vehicles to @geofence?.Name</h1>
+        <!-- Back button moved to top -->
+        <div class="mb-3">
+            <a asp-action="Index" class="geofence-back-link">
+                <i class="fas fa-arrow-left"></i> Back to Geofences
+            </a>
+        </div>
+        <h1 class="mb-4 text-center" style="font-family: 'Montserrat', 'Lato', Arial, sans-serif; font-weight: 600; font-size: 2rem; color: #222;">Assign Vehicles to @geofence?.Name</h1>
         <form method="get" class="mb-4 d-flex justify-content-center align-items-center gap-2">
             <input type="hidden" name="id" value="@geofence?.Id" />
             <input type="text" name="searchPlate" class="form-control" style="max-width: 220px;" placeholder="Search by License Plate" value="@Context.Request.Query["searchPlate"]" />
@@ -64,12 +70,28 @@
                                 <form asp-action="AssignVehicle" method="post" style="display:inline;">
                                     <input type="hidden" name="geofenceId" value="@geofence?.Id" />
                                     <input type="hidden" name="vehicleId" value="@vehicle.Id" />
-                                    <button type="submit" class="geofence-assign-btn"><i class="fas fa-link me-1"></i> Assign</button>
+                                    <button type="submit" class="geofence-assign-btn"
+                                            title="Assign vehicle to @geofence?.Name geofence">
+                                        <i class="fas fa-link"></i> Assign
+                                    </button>
                                 </form>
                             }
                             else
                             {
-                                <span class="geofence-assign-badge"><i class="fas fa-check-circle me-1"></i> Assigned</span>
+                                <div class="assigned-actions">
+                                    <span class="geofence-assign-badge">
+                                        <i class="fas fa-check-circle"></i> Assigned
+                                    </span>
+                                    <form asp-action="UnassignVehicle" method="post" style="display:inline;">
+                                        <input type="hidden" name="geofenceId" value="@geofence?.Id" />
+                                        <input type="hidden" name="vehicleId" value="@vehicle.Id" />
+                                        <button type="submit" class="geofence-unassign-btn" 
+                                                onclick="return confirm('Are you sure you want to unassign this vehicle from @geofence?.Name geofence?')"
+                                                title="Remove vehicle from this geofence">
+                                            <i class="fas fa-unlink"></i> Unassign
+                                        </button>
+                                    </form>
+                                </div>
                             }
                         </td>
                     </tr>
@@ -77,7 +99,6 @@
                 </tbody>
             </table>
         </div>
-        <a asp-action="Index" class="geofence-back-link"><i class="fas fa-arrow-left"></i> Back to Geofences</a>
         @if (TempData["AssignmentSuccess"] != null)
         {
             <div class="alert alert-success mt-3">@TempData["AssignmentSuccess"]</div>

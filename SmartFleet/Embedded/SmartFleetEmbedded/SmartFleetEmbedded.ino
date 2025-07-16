@@ -5,7 +5,7 @@
 const char* SIM_CARD_NUMBER = "01505932589";  // Your SimCard number
 const char* DEVICE_ID = "865067029129670";    // Device IMEI number
 const char* DEVICE_MODEL = "SIM808";          // Device model
-const char* SERVER_URL = "zrg0wrhjfs.loclx.io"; // Your server URL
+const char* SERVER_URL = "jkaiz7f5hs.loclx.io"; // Your server URL
 
 void setup() {
   delay(500); // Further reduced initialization time

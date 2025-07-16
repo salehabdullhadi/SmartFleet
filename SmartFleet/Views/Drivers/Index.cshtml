@@ -90,15 +90,20 @@
                 </td>
        
                     <td>
-                        <a asp-action="Edit" asp-route-id="@driver.Id" class="btn edit">
-                            <i class="fas fa-edit"></i> Edit
+                        <div class="driver-actions">
+                            <a asp-action="Edit" asp-route-id="@driver.Id" class="btn btn-action edit" title="Edit Driver">
+                                <i class="fas fa-edit"></i>
                         </a>
-                        <a asp-action="Details" asp-route-id="@driver.Id" class="btn details">
-                            <i class="fas fa-info-circle"></i> Details
+                            <a asp-action="Details" asp-route-id="@driver.Id" class="btn btn-action details" title="View Details">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a asp-action="Timeline" asp-route-id="@driver.Id" class="btn btn-action timeline" title="Driver Timeline">
+                                <i class="fas fa-timeline"></i>
                         </a>
-                        <button type="button" class="btn delete" onclick="deleteDriver('@driver.Id', '@driver.UserName')">
-                            <i class="fas fa-trash-alt deleted_icon"></i>
+                            <button type="button" class="btn btn-action delete" onclick="deleteDriver('@driver.Id', '@driver.UserName')" title="Delete Driver">
+                                <i class="fas fa-trash-alt"></i>
                         </button>
+                        </div>
                     </td>
                 </tr>
             }
