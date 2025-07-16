@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 
 class ApiConfig {
   // إعدادات مختلفة للبيئات المختلفة
-  static const String _localhostUrl = 'http://localhost:50993';
-  static const String _emulatorUrl = 'http://10.0.2.2:50993';
-  static String _deviceUrl = 'http://192.168.144.78:50993';
+  static const String _localhostUrl = 'http://localhost:5001';
+  static const String _emulatorUrl = 'http://10.0.2.2:5001';
+  static String _deviceUrl = 'http://192.168.144.78:5001';
   
   static String get baseUrl {
     String url;

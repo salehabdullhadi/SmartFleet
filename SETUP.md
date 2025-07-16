@@ -69,7 +69,7 @@ dotnet ef database update
 dotnet run
 ```
 
-✅ **النظام الخلفي سيعمل على:** `https://localhost:5001`
+✅ **النظام الخلفي سيعمل على:** `https://localhost:5001` (HTTPS) و `http://localhost:5000` (HTTP)
 
 ### 4️⃣ إعداد التطبيق المحمول
 
@@ -169,7 +169,7 @@ flutter pub get
 ### 2️⃣ اختبار API:
 ```bash
 # اختبار API مع Postman
-POST https://localhost:5001/api/authapi/login
+POST http://localhost:5001/api/authapi/login
 {
   "email": "fleetmanager@smartfleet.com",
   "password": "FleetManager123!"
