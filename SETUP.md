@@ -44,7 +44,7 @@ CREATE DATABASE SmartFleetdata4;
 ```
 
 #### ب. تحديث Connection String:
-افتح ملف `SmartFleet/appsettings.json` وحدث:
+افتح ملف `SmartFleet.Web/appsettings.json` وحدث:
 ```json
 {
   "ConnectionStrings": {
@@ -57,7 +57,7 @@ CREATE DATABASE SmartFleetdata4;
 
 ```bash
 # الانتقال لمجلد الباك إند
-cd SmartFleet
+cd SmartFleet.Web
 
 # استعادة الحزم
 dotnet restore
@@ -74,7 +74,7 @@ dotnet run
 ### 4️⃣ إعداد التطبيق المحمول
 
 #### أ. تحديث IP Address:
-افتح ملف `SmartFleet/smartfleet_app/smartfleet_app/lib/config/api_config.dart`
+افتح ملف `SmartFleet.Mobile/smartfleet_app/lib/config/api_config.dart`
 ```dart
 static String _deviceUrl = 'http://YOUR_IP_ADDRESS:5001';
 ```
@@ -82,7 +82,7 @@ static String _deviceUrl = 'http://YOUR_IP_ADDRESS:5001';
 #### ب. تشغيل التطبيق:
 ```bash
 # الانتقال لمجلد Flutter
-cd SmartFleet/smartfleet_app/smartfleet_app
+cd SmartFleet.Mobile/smartfleet_app
 
 # تحميل التبعيات
 flutter pub get
@@ -94,7 +94,7 @@ flutter run
 ### 5️⃣ إعداد النظام المدمج
 
 #### أ. فتح كود Arduino:
-افتح ملف `SmartFleet/Embedded/SmartFleetEmbedded/SmartFleetEmbedded.ino`
+افتح ملف `SmartFleet.Arduino/SmartFleetEmbedded/SmartFleetEmbedded.ino`
 
 #### ب. تحديث الإعدادات:
 ```cpp

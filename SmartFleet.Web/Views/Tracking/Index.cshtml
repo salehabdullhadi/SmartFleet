@@ -1,0 +1,123 @@
+@{
+    ViewData["Title"] = "Fleet Tracking";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Fleet Tracking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/pages/tracking/tracking.css" />
+</head>
+<body>
+
+<div class="page-title">
+    <h1>Fleet Tracking</h1>
+    <hr>
+</div>
+
+<div class="main-layout">
+    <!-- Sidebar with vehicle list and controls -->
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <!-- Map Controls -->
+            <div class="map-controls-top">
+                <button class="control-btn" onclick="toggleVehiclePaths()" title="Toggle Vehicle Paths">
+                    <i class="fas fa-route"></i> Paths
+                </button>
+                <button class="control-btn" onclick="centerMap()" title="Center Map">
+                    <i class="fas fa-crosshairs"></i> Center
+                </button>
+                <button class="control-btn" onclick="refreshData()" title="Refresh Data">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            
+            <!-- Search Form -->
+            <form class="search-form" onsubmit="event.preventDefault();">
+                <div class="input-group">
+                    <input type="text" class="form-control search-bar" placeholder="Search vehicles..." oninput="filterVehicles()">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Vehicle Table -->
+        <div class="table-container">
+            <table id="vehicleTable">
+                <thead>
+                <tr>
+                    <th><i class="fas fa-truck"></i> Vehicle</th>
+                    <th><i class="fas fa-tachometer-alt"></i> Speed</th>
+                    <th><i class="fas fa-circle"></i> Movement</th>
+                    <th><i class="fas fa-route"></i> Trip Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Vehicle data will be loaded dynamically via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Right Content Area -->
+    <div class="right-content">
+        <!-- Map Section -->
+        <div class="map-section">
+            <div id="map"></div>
+        </div>
+        
+        <!-- Info Panels Section -->
+        <div class="info-panels-section">
+            <div id="info-panel">
+                <!-- Vehicle Details Panel -->
+                <div class="info-section">
+                    <div class="info-card" id="vehicle-details">
+                        <h3><i class="fas fa-info-circle"></i> Vehicle Details</h3>
+                        <div class="info-content">
+                            <!-- Vehicle details will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Position Information Panel -->
+                <div class="info-section">
+                    <div class="info-card" id="position-info">
+                        <h3><i class="fas fa-map-marker-alt"></i> Position</h3>
+                        <div class="info-content">
+                            <!-- Position info will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Driver Information Panel -->
+                <div class="info-section">
+                    <div class="info-card" id="driver-info">
+                        <h3><i class="fas fa-user"></i> Driver Information</h3>
+                        <div class="info-content">
+                            <!-- Driver info will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trip Information Panel -->
+                <div class="info-section">
+                    <div class="info-card" id="trip-info">
+                        <h3><i class="fas fa-route"></i> Trip Information</h3>
+                        <div class="info-content">
+                            <!-- Trip info will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+<script src="~/js/tracking.js"></script>
+</body>
+</html>

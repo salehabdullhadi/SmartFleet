@@ -28,7 +28,7 @@
 
 ```
 SmartFleet/
-├── SmartFleet/                      # 🌐 النظام الخلفي (ASP.NET Core)
+├── SmartFleet.Web/                  # 🌐 النظام الخلفي (ASP.NET Core)
 │   ├── Controllers/                 # مراقبات MVC وAPI
 │   ├── Models/                      # نماذج قاعدة البيانات
 │   ├── Services/                    # خدمات منطق العمل
@@ -36,19 +36,21 @@ SmartFleet/
 │   ├── wwwroot/                     # الملفات الثابتة
 │   ├── Data/                        # سياق قاعدة البيانات
 │   ├── Hubs/                        # مراكز SignalR
-│   └── Embedded/                    # 🔧 كود Arduino
-│       └── SmartFleetEmbedded/
-│           └── SmartFleetEmbedded.ino
-├── smartfleet_app/                  # 📱 التطبيق المحمول (Flutter)
-│   ├── lib/
-│   │   ├── screens/                 # شاشات التطبيق
-│   │   ├── services/                # خدمات API
-│   │   ├── models/                  # نماذج البيانات
-│   │   ├── widgets/                 # عناصر واجهة المستخدم
-│   │   ├── theme/                   # تصميم التطبيق
-│   │   └── config/                  # إعدادات التطبيق
-│   └── pubspec.yaml                 # تبعيات Flutter
-├── SmartFleet.Tests/                # 🧪 اختبارات الوحدة
+│   └── SmartFleet.Tests/            # 🧪 اختبارات الوحدة
+├── SmartFleet.Mobile/               # 📱 التطبيق المحمول (Flutter)
+│   ├── smartfleet_app/
+│   │   ├── lib/
+│   │   │   ├── screens/             # شاشات التطبيق
+│   │   │   ├── services/            # خدمات API
+│   │   │   ├── models/              # نماذج البيانات
+│   │   │   ├── widgets/             # عناصر واجهة المستخدم
+│   │   │   ├── theme/               # تصميم التطبيق
+│   │   │   └── config/              # إعدادات التطبيق
+│   │   └── pubspec.yaml             # تبعيات Flutter
+├── SmartFleet.Arduino/              # 🔧 النظام المدمج (Arduino)
+│   └── SmartFleetEmbedded/
+│       └── SmartFleetEmbedded.ino   # كود Arduino + SIM808
+├── SmartFleet.Shared/               # 📦 الكود المشترك
 ├── Documentation/                   # 📚 التوثيق
 ├── Final first term.pdf             # 📄 تقرير المشروع
 └── README.md                        # 📖 دليل المشروع
@@ -213,7 +215,7 @@ SmartFleet/
 git clone https://github.com/your-repo/SmartFleet.git
 
 # الانتقال لمجلد المشروع
-cd SmartFleet/SmartFleet
+cd SmartFleet/SmartFleet.Web
 
 # استعادة الحزم
 dotnet restore
@@ -228,7 +230,7 @@ dotnet run
 ### 2️⃣ تشغيل التطبيق المحمول:
 ```bash
 # الانتقال لمجلد Flutter
-cd SmartFleet/smartfleet_app/smartfleet_app
+cd SmartFleet/SmartFleet.Mobile/smartfleet_app
 
 # تحميل التبعيات
 flutter pub get

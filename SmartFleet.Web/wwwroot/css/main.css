@@ -1,0 +1,54 @@
+/* main.css */
+
+/* Base styles */
+@import 'base/reset.css';
+@import 'base/variables.css';
+
+/* Component styles */
+@import 'components/buttons.css';
+@import 'components/forms.css';
+
+/* Page-specific styles */
+@import 'pages/home.css';
+@import 'pages/dashboard.css';
+
+/* Responsive styles */
+@import 'responsive.css';
+
+@import '/lib/fontawesome/all.css';
+
+/* Custom Pagination Styles */
+.pagination {
+    justify-content: center;
+}
+
+.page-item .page-link {
+    color: #20B2AA !important;
+    border-color: #20B2AA !important;
+    background-color: transparent !important;
+}
+
+.page-item .page-link:hover {
+    color: #ffffff !important;
+    background-color: #20B2AA !important;
+    border-color: #20B2AA !important;
+}
+
+.page-item .page-link:focus {
+    color: #ffffff !important;
+    background-color: #20B2AA !important;
+    border-color: #20B2AA !important;
+    box-shadow: 0 0 0 0.2rem rgba(32, 178, 170, 0.25) !important;
+}
+
+.page-item.active .page-link {
+    color: #ffffff !important;
+    background-color: #20B2AA !important;
+    border-color: #20B2AA !important;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d !important;
+    border-color: #dee2e6 !important;
+    background-color: transparent !important;
+}

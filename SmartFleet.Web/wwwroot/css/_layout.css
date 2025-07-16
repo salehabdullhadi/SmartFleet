@@ -1,0 +1,588 @@
+/* ========================================
+   SMART FLEET LAYOUT STYLES
+   ======================================== */
+
+/* ========================================
+   GLOBAL LAYOUT STYLES
+   ======================================== */
+
+body {
+    overflow-x: hidden !important;
+}
+
+/* ========================================
+   HEADER & NAVBAR LAYOUT
+   ======================================== */
+
+#sf-header {
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Navbar container and structure */
+.sf-navbar {
+    min-height: 8px !important;
+    background: var(--bs-white);
+    padding-top: 0.005rem !important;
+    padding-bottom: 0.005rem !important;
+}
+
+.nav-bar {
+    background: var(--bs-white) !important;
+}
+
+.sticky-top {
+    transition: 1s !important;
+}
+
+/* Override container padding for navbar to allow edging */
+#sf-header .container-fluid .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+}
+
+/* Ensure navbar uses full width */
+#sf-header .navbar {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100%;
+}
+
+/* Ensure navbar collapse uses full available space */
+#sf-header .navbar-collapse {
+    justify-content: space-between;
+    width: 100%;
+    flex: 1;
+}
+
+/* ========================================
+   NAVIGATION MENU STYLES
+   ======================================== */
+
+/* Center the navigation menu in the available space */
+#sf-header .navbar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+    margin: 0 auto;
+}
+
+.navbar-nav .nav-item {
+    position: relative;
+    white-space: nowrap;
+    margin: 0 3px;
+}
+
+/* Navigation link styles */
+.navbar-light .navbar-nav .nav-link {
+    position: relative !important;
+    margin-right: 18px !important;
+    padding: 15px 0 !important;
+    letter-spacing: 1px !important;
+    color: var(--bs-dark) !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    outline: none !important;
+    transition: .5s !important;
+}
+
+.sticky-top .navbar-light .navbar-nav .nav-link {
+    padding: 6px 0 !important;
+    color: var(--bs-dark) !important;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--bs-primary) !important;
+}
+
+/* Dropdown styles */
+.navbar .dropdown-toggle::after {
+    border: none !important;
+    content: "\f107" !important;
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 600 !important;
+    vertical-align: middle !important;
+    margin-left: 8px !important;
+}
+
+.navbar-nav .dropdown-menu {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+    transform: rotateX(-75deg);
+    transform-origin: top left;
+}
+
+.navbar-nav .dropdown:hover .dropdown-menu {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    transform: rotateX(0);
+}
+
+.dropdown .dropdown-menu a:hover {
+    background: var(--bs-primary) !important;
+    color: var(--bs-white) !important;
+}
+
+.navbar .nav-item:hover .dropdown-menu {
+    transform: rotateX(0deg) !important;
+    visibility: visible !important;
+    margin-top: 8px !important;
+    background: var(--bs-light) !important;
+    transition: .5s !important;
+    opacity: 1 !important;
+}
+
+/* ========================================
+   BRAND/LOGO STYLES
+   ======================================== */
+
+/* Ensure logo stays at the far left edge */
+#sf-header .navbar-brand {
+    flex-shrink: 0;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+.sf-navbar .navbar-brand h1 {
+    font-size: 2.2rem;
+    margin: 0;
+    position: relative;
+    left: 40px;
+}
+
+.navbar-light .navbar-brand img {
+    max-height: 50px !important;
+    transition: .5s !important;
+}
+
+.sticky-top .navbar-light .navbar-brand img {
+    max-height: 40px !important;
+}
+
+/* ========================================
+   RIGHT-SIDE BUTTONS & ACTIONS
+   ======================================== */
+
+/* Ensure right-side buttons stay at the far right edge */
+#sf-header .d-flex.align-items-center.ms-auto {
+    flex-shrink: 0;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+    width: auto;
+    min-width: 200px;
+    justify-content: flex-end;
+    position: relative;
+    right: 40px;
+}
+
+/* Override the conflicting .d-flex style from home.css */
+#sf-header .d-flex {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Override the conflicting .nav-right style from home.css */
+#sf-header .nav-right {
+    margin-right: 0 !important;
+    width: auto !important;
+}
+
+/* Override the conflicting .nav-auto style from home.css */
+#sf-header .nav-auto {
+    width: auto !important;
+    margin-left: 0 !important;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+/* Button styles */
+.sf-navbar .btn-lg {
+    padding: 0.15rem 0.35rem !important;
+    font-size: 1rem !important;
+    white-space: nowrap;
+}
+
+.sf-navbar .btn-success.btn-lg, 
+.sf-navbar .btn-primary.btn-lg:not(.my-account-btn) {
+    padding: 0.2rem 0.5rem !important;
+    font-size: 1.1rem !important;
+    font-weight: 500;
+}
+
+.sf-navbar .btn-primary {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    color: #fff !important;
+}
+
+.sf-navbar .btn-primary:hover {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    opacity: 0.9;
+ 
+}
+
+.sf-navbar .btn-warning.btn-lg {
+    padding: 0.2rem 0.5rem !important;
+    font-size: 1rem !important;
+    font-weight: 500;
+}
+
+.sf-navbar .my-account-btn {
+    background-color: transparent !important;
+    border-color: var(--bs-primary) !important;
+    color: var(--bs-primary) !important;
+    font-weight: 600 !important;
+}
+
+.sf-navbar .my-account-btn:hover {
+    background-color: transparent !important;
+    color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    color: #fff !important;
+    background-color: #20B2AA !important;
+}
+
+.sf-navbar .btn-secondary {
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    padding-left: 1.2rem !important;
+    padding-right: 1.2rem !important;
+}
+
+.sf-navbar .btn-secondary:hover {
+    background-color: #001027 !important;
+    border-color: #001027 !important;
+    opacity: 0.95 !important;
+}
+
+/* Outline button styles */
+.sf-navbar .btn-outline-warning {
+    color: #ffc107;
+    border-color: #ffc107;
+}
+
+.sf-navbar .btn-outline-warning:hover {
+    color: #000;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.sf-navbar .btn-outline-primary {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.sf-navbar .btn-outline-primary:hover {
+    color: #fff;
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.sf-navbar .btn-outline-success {
+    color: #198754;
+    border-color: #198754;
+}
+
+.sf-navbar .btn-outline-success:hover {
+    color: #fff;
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.sf-navbar .btn-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.sf-navbar .btn-outline-danger:hover {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+/* ========================================
+   NOTIFICATION STYLES
+   ======================================== */
+
+.sf-navbar .notification-bell {
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+
+.sf-navbar .notification-bell.has-unread {
+    color: #FFD700 !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.sf-navbar .notification-bell.no-unread {
+    color: #000000 !important;
+}
+
+.sf-navbar .notification-badge {
+    font-size: 0.75rem;
+    min-width: 18px;
+    height: 18px;
+    transform: translate(-50%, -50%) !important;
+    top: 2px !important;
+    right: -5px !important;
+    left: auto !important;
+    border-radius: 50%;
+}
+
+/* ========================================
+   FOOTER STYLES
+   ======================================== */
+
+#sf-footer {
+    color: #fff;
+    padding: 1.5rem 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+#sf-footer .container-fluid.copyright {
+    background: var(--bs-dark, #000C21);
+    color: #fff;
+}
+
+#sf-footer .copyright {
+    background: transparent;
+    color: #fff;
+    font-size: 1rem;
+}
+
+#sf-footer a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+#sf-footer a:hover {
+    color: var(--bs-primary);
+}
+
+/* Copyright layout */
+.copyright {
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: var(--bs-dark) !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    padding: 2px 0 !important;
+    z-index: 1000 !important;
+    text-align: center !important;
+}
+
+/* ========================================
+   UTILITY LAYOUT STYLES
+   ======================================== */
+
+/* Back to top button layout */
+.back-to-top {
+    position: fixed !important;
+    right: 30px !important;
+    bottom: 30px !important;
+    transition: 0.5s !important;
+    z-index: 99 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 64px !important;
+    height: 64px !important;
+    border-radius: 8px !important;
+}
+
+/* Layout container styles */
+.counter, .steps, .bg-breadcrumb {
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    position: relative !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* ========================================
+   LOCKED NAVIGATION STYLES
+   ======================================== */
+
+/* Locked navigation items */
+.navbar-nav .nav-link.text-muted {
+    color: #6c757d !important;
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.navbar-nav .nav-link.text-muted:hover {
+    color: #6c757d !important;
+    opacity: 0.7;
+    text-decoration: none;
+}
+
+/* Locked dropdown items */
+.navbar-nav .dropdown-menu .dropdown-item.text-muted {
+    color: #6c757d !important;
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.navbar-nav .dropdown-menu .dropdown-item.text-muted:hover {
+    color: #6c757d !important;
+    opacity: 0.7;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+/* Lock icon styling */
+.navbar-nav .nav-link .fas.fa-lock {
+    color: #6c757d;
+    opacity: 0.8;
+}
+
+/* Disable dropdown functionality for locked items */
+.navbar-nav .nav-item.dropdown .nav-link.text-muted + .dropdown-menu {
+    pointer-events: none;
+}
+
+.navbar-nav .nav-item.dropdown .nav-link.text-muted:hover + .dropdown-menu {
+    display: none !important;
+}
+
+/* Tooltip styling for locked items */
+.navbar-nav .nav-link.text-muted[title] {
+    position: relative;
+}
+
+.navbar-nav .nav-link.text-muted[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/* ========================================
+   RESPONSIVE STYLES
+   ======================================== */
+
+/* Large screens */
+@media (min-width: 992px) {
+    .navbar .nav-item .dropdown-menu {
+        display: block !important;
+        visibility: hidden !important;
+        top: 100% !important;
+        transform: rotateX(-75deg) !important;
+        transform-origin: 0% 0% !important;
+        border: 0 !important;
+        border-radius: 10px !important;
+        margin-top: 8px !important;
+        transition: .5s !important;
+        opacity: 0 !important;
+    }
+}
+
+/* Medium screens */
+@media (max-width: 1200px) and (min-width: 768px) {
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 15px !important;
+        padding: 6px 0 !important;
+        margin-right: 6px !important;
+    }
+}
+
+/* Small screens */
+@media (max-width: 991px) {
+    .navbar.navbar-expand-lg .navbar-toggler {
+        padding: 5px 10px !important;
+        border: 1px solid var(--bs-primary) !important;
+        color: var(--bs-primary) !important;
+    }
+
+    .sticky-top .navbar-light .navbar-nav .nav-link {
+        padding: 4px 0 !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .navbar-nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .navbar-nav::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-nav {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .navbar-nav .nav-item {
+        margin: 2px 3px;
+    }
+}
+
+/* ========================================
+   PAGINATION STYLES
+   ======================================== */
+
+.pagination {
+    justify-content: center;
+}
+
+.page-item .page-link {
+    color: #20B2AA !important;
+    border-color: #20B2AA !important;
+    background-color: transparent !important;
+}
+
+.page-item .page-link:hover {
+    color: #ffffff !important;
+    background-color: #20B2AA !important;
+    border-color: #20B2AA !important;
+}
+
+.page-item .page-link:focus {
+    color: #ffffff !important;
+    background-color: #20B2AA !important;
+    border-color: #20B2AA !important;
+    box-shadow: 0 0 0 0.2rem rgba(32, 178, 170, 0.25) !important;
+}
+
+.page-item.active .page-link {
+    color: #ffffff !important;
+    background-color: #20B2AA !important;
+    border-color: #20B2AA !important;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d !important;
+    border-color: #dee2e6 !important;
+    background-color: transparent !important;
+}
