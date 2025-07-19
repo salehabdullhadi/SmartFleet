@@ -1,0 +1,724 @@
+/* Table styles */
+.table-maintenance {
+    border-radius: 15px;
+    width: 80%;
+    padding: 20px;
+    background-color: white;
+    margin: auto;
+}
+
+.table-maintenance th, .table-maintenance td {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.08rem;
+    color: #222;
+    letter-spacing: 0.01em;
+    line-height: 1.6;
+    padding: 10px 5px;
+    font-weight: bold;
+}
+
+.table-maintenance th {
+    background: #f7f7f7;
+    color: grey;
+    font-weight: 700;
+    font-size: 1.13rem;
+}
+
+.table-maintenance tbody tr:hover {
+    background: #f0f8ff;
+    transition: background 0.2s;
+}
+
+.status-active {
+    color: green;
+}
+.status-maintenance {
+    color: orange;
+}
+.status-inactive {
+    color: red;
+}
+
+/* Button styles from drivers list */
+.btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn.edit, .btn.details, .btn.delete {
+    background-color: rgb(235, 235, 235);
+    color: black;
+}
+
+.deleted_icon {
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+}
+
+.fa-edit {
+    margin-right: 5px;
+    color: #111 !important;
+}
+
+.maintenance-icon {
+    margin-right: 5px;
+    color: #fff !important;
+}
+
+.btn-add-maintenance {
+    color: white;
+    background-color: #16b416;
+    text-align: center;
+}
+.btn-add-maintenance:hover {
+    color: white;
+    background-color: #16b416;
+}
+
+.add-maintenance {
+    text-align: center;
+}
+
+.badge-status {
+    display: inline-block;
+    padding: 0.25em 0.7em;
+    border-radius: 12px;
+    font-size: 0.95em;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+}
+
+/* Maintenance status badges */
+.badge-pending { 
+    background: #ffeaea; 
+    color: #e63946; 
+    border: 1px solid #ffb3b3;
+}
+
+.badge-in_progress { 
+    background: #fffbe6; 
+    color: #e6b800; 
+    border: 1px solid #ffe066;
+}
+
+.badge-completed { 
+    background: #e6f9e6; 
+    color: #16b416; 
+    border: 1px solid #b3e6b3;
+}
+
+/* Priority badges */
+.badge-low { 
+    background: #e6f9e6; 
+    color: #16b416; 
+    border: 1px solid;
+}
+
+.badge-normal { 
+    background: #fffbe6; 
+    color: #e6b800; 
+    border: 1px solid ;
+}
+
+.badge-high { 
+    background: #ffeaea; 
+    color: #e63946; 
+    border: 1px solid;
+}
+
+/* Vehicle state badges */
+.badge-available { background: #e6f9e6; color: #16b416; }
+.badge-need_maintenance { background: #fffbe6; color: #e6b800; }
+.badge-under_maintenance { background: #ffeaea; color: #e63946; }
+.badge-maintained { background: #e6f3ff; color: #0066cc; }
+.badge-on_trip { background: #f0f8ff; color: #4169e1; }
+.badge-on_scheduled_trip { background: #f5f5dc; color: #8b4513; }
+
+@media (max-width: 900px) {
+    .table-maintenance th, .table-maintenance td {
+        font-size: 0.95rem;
+        padding: 4px;
+    }
+}
+@media (max-width: 600px) {
+    .table-maintenance th, .table-maintenance td {
+        font-size: 0.85rem;
+        padding: 2px;
+    }
+}
+
+/* Filter bar enhancements */
+.maintenance-filter-bar {
+    background: #f4f8fb;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(22,180,22,0.07), 0 1.5px 4px rgba(0,0,0,0.03);
+    padding: 22px 28px 14px 28px;
+    margin: 0 auto 28px auto;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 18px 24px;
+    border: 1px solid #e0e7ef;
+    justify-content: center;
+}
+.maintenance-filter-bar form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 18px 24px;
+    flex-direction: row;
+    position: relative;
+}
+.maintenance-filter-actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 14px;
+}
+.maintenance-filter-bar label {
+    font-size: 0.98rem;
+    color: #555;
+    font-weight: 500;
+    margin-bottom: 4px;
+    letter-spacing: 0.01em;
+}
+.maintenance-filter-bar input,
+.maintenance-filter-bar select {
+    border-radius: 8px;
+    border: 1.5px solid #d1d5db;
+    background: #fff;
+    font-size: 1.04rem;
+    color: #222;
+    padding: 8px 14px;
+    min-width: 140px;
+    box-shadow: none;
+    transition: border 0.2s, box-shadow 0.2s;
+    margin-bottom: 0;
+}
+.maintenance-filter-bar input:focus,
+.maintenance-filter-bar select:focus {
+    border: 1.5px solid #16b416;
+    outline: none;
+    box-shadow: 0 0 0 2px #e6f9e6;
+}
+.maintenance-filter-bar .custom-btn,
+.maintenance-filter-bar .btn-secondary {
+    font-size: 0.97rem;
+    padding: 5px 14px;
+    min-width: 90px;
+}
+.maintenance-filter-bar .custom-btn {
+    background: linear-gradient(90deg, #16b416 60%, #13a013 100%);
+    color: #fff !important;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    margin-left: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(22,180,22,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.maintenance-filter-bar .custom-btn:hover {
+    background: linear-gradient(90deg, #13a013 60%, #16b416 100%);
+    box-shadow: 0 4px 16px rgba(22,180,22,0.13);
+}
+.maintenance-filter-bar .custom-btn i {
+    color: #fff;
+}
+.maintenance-filter-bar .btn-secondary {
+    border-radius: 8px;
+    margin-left: 6px;
+    font-weight: 500;
+    background: #e9ecef;
+    color: #444;
+    border: 1px solid #d1d5db;
+    transition: background 0.2s, color 0.2s;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.maintenance-filter-bar .btn-secondary:hover {
+    background: #d1d5db;
+    color: #222;
+}
+@media (max-width: 900px) {
+    .maintenance-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 14px 6px 8px 6px;
+    }
+    .maintenance-filter-bar .form-group {
+        width: 100%;
+        min-width: 0;
+    }
+    .maintenance-filter-bar form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+    .maintenance-filter-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+}
+
+/* Enhanced search input styles */
+.maintenance-filter-bar input[name="searchPlate"] {
+    font-size: 1.12rem;
+    padding: 10px 18px;
+    background: #fff;
+    color: #222;
+    border: 2px solid #b6e2c2;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    box-shadow: 0 1px 6px rgba(22,180,22,0.04);
+}
+.maintenance-filter-bar input[name="searchPlate"]::placeholder {
+    color: grey;
+    opacity: 1;
+    font-size: 1.08rem;
+    font-weight: 600;
+}
+
+.priority-status {
+    color: red
+}
+.custom-btn {
+    border-color: #16b416;
+    color: white !important;
+    background-color: #16b416;
+}
+
+    .custom-btn:hover {
+        background-color: #13a013;
+        color: white;
+        border-color: #6BDA00;
+    }
+
+.search-icon {
+    color: black;
+}
+
+/* Maintenance Header */
+.maintenance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px 0;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.maintenance-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.maintenance-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.maintenance-actions .btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.maintenance-actions .btn i {
+    font-size: 0.8rem;
+}
+
+/* Table Improvements */
+.issue-description {
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+.action-buttons .btn {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+}
+
+/* Badge Styles for Index */
+.badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.badge-pending {
+    background-color: #ffc107;
+    color: white;
+}
+
+.badge-in_progress {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.badge-completed {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge-low {
+    background-color: #6c757d;
+    color: white;
+}
+
+.badge-normal {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.badge-high {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Breadcrumb Styles */
+.breadcrumb {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+    color: #6c757d;
+}
+
+.breadcrumb-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}  
+
+/* Maintenance Vehicles Table Styles */
+.maintenance-vehicles-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1200px;
+    overflow: hidden;
+}
+
+.maintenance-vehicles-header {
+    background: #f8f9fa;
+    padding: 20px 25px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.maintenance-vehicles-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.maintenance-vehicles-title i {
+    color: #20B2AA;
+}
+
+.maintenance-vehicles-actions-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.btn-back-to-maintenance {
+    background: #6c757d;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: none;
+    transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-back-to-maintenance:hover {
+    background: #5a6268;
+    color: white;
+    text-decoration: none;
+}
+
+.maintenance-vehicles-table {
+    width: 100%;
+}
+
+.maintenance-vehicles-table .table {
+    margin-bottom: 0;
+    border: none;
+}
+
+.maintenance-vehicles-table thead th {
+    background: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    vertical-align: middle;
+    padding: 15px 10px;
+    border: none;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.maintenance-vehicles-table tbody td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px 10px;
+    border: none;
+    border-bottom: 1px solid #f1f3f4;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.maintenance-vehicles-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.maintenance-vehicles-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.vehicle-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.vehicle-license {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #2c3e50;
+}
+
+.vehicle-model {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.vehicle-type {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #495057;
+    text-transform: capitalize;
+}
+
+.btn-add-maintenance-report {
+    background: linear-gradient(135deg, #20B2AA 0%, #1a9a94 100%);
+    color: #ffffff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(32, 178, 170, 0.2);
+    cursor: pointer;
+}
+
+.btn-add-maintenance-report:hover {
+    background: linear-gradient(135deg, #1a9a94 0%, #158f89 100%);
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(32, 178, 170, 0.3);
+}
+
+.btn-maintenance-created {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: #ffffff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+    cursor: default;
+    opacity: 0.9;
+}
+
+.btn-maintenance-created:disabled {
+    opacity: 0.9;
+    cursor: default;
+}
+
+.btn-maintenance-created i {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.no-vehicles-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.no-vehicles-message i {
+    font-size: 2.5rem;
+    color: #dee2e6;
+    margin-bottom: 15px;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .maintenance-vehicles-container {
+        margin: 10px;
+        border-radius: 8px;
+    }
+
+    .maintenance-vehicles-header {
+        padding: 15px;
+    }
+
+    .maintenance-vehicles-title {
+        font-size: 1.3rem;
+    }
+
+    .maintenance-vehicles-table thead th,
+    .maintenance-vehicles-table tbody td {
+        padding: 10px 6px;
+        font-size: 0.85rem;
+    }
+
+    .vehicle-license {
+        font-size: 0.9rem;
+    }
+
+    .vehicle-model {
+        font-size: 0.8rem;
+    }
+
+    .vehicle-type {
+        font-size: 1rem;
+    }
+
+    .btn-add-maintenance-report {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}  
+
+.maintenance-button-group {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.maintenance-button-group .btn {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.maintenance-button-group .btn.delete {
+    border: none;
+    background: none;
+    padding: 8px 15px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0;
+    cursor: pointer;
+}
+
+.maintenance-button-group form {
+    margin: 0;
+    display: inline;
+}  
+
+.maintenance-actions-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-edit-maintenance {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+    color: #ffffff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
+    cursor: pointer;
+}
+
+.btn-edit-maintenance:hover {
+    background: linear-gradient(135deg, #e0a800 0%, #d39e00 100%);
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+.btn-edit-maintenance i {
+    color: #ffffff;
+    font-size: 14px;
+}  

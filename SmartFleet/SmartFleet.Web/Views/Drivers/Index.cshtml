@@ -1,0 +1,156 @@
+﻿@model IEnumerable<SmartFleet.Models.Driver>
+
+@{
+    ViewData["Title"] = "Drivers";
+}
+
+<head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/pages/driver/list.css">
+    
+</head>
+<div class="add-driver mb-3">
+    <a asp-action="Create" class="btn btn-add-car">
+        <i class="fas fa-user-plus driver-icon"></i> Add Driver
+    </a>
+</div>
+<div class="driver-filter-bar">
+    <form asp-action="Index" method="get">
+        <div class="form-group mx-2">
+            <input type="text" name="searchUserName" value="@Context.Request.Query["searchUserName"]" class="form-control form-control-sm" placeholder="Search Username" />
+        </div>
+        <div class="form-group mx-2">
+            <input type="text" name="searchLicense" value="@Context.Request.Query["searchLicense"]" class="form-control form-control-sm" placeholder="Search License Number" />
+        </div>
+        <div class="form-group mx-2">
+            <select name="statusFilter" class="form-control form-control-sm">
+                <option value="">All Statuses</option>
+                @foreach (SmartFleet.Models.DriverState state in Enum.GetValues(typeof(SmartFleet.Models.DriverState)))
+                {
+                    var statusText = state.ToString();
+                    // Add spaces before capital letters for better readability
+                    statusText = System.Text.RegularExpressions.Regex.Replace(statusText, "([a-z])([A-Z])", "$1 $2");
+                    
+                    // Use shorter text for the long status
+                    if (statusText == "Assigned On Scheduled Trip")
+                    {
+                        statusText = "Scheduled Trip";
+                    }
+                    
+                    <option value="@state" selected="@(Context.Request.Query["statusFilter"] == state.ToString() ? "selected" : null)">@statusText</option>
+                }
+            </select>
+        </div>
+        <div class="driver-filter-actions">
+            <button type="submit" class="btn btn-sm custom-btn">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+            <a asp-action="Index" class="btn btn-sm btn-secondary ms-2">Clear</a>
+        </div>
+    </form>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-driver table-bordered">
+        <thead>
+            <tr>
+            <th>UserName</th>
+            <th>Email</th>
+            <th>License Number</th>
+            <th>License Expiry</th>
+            <th>Status</th>
+            <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var driver in Model)
+        {
+            <tr>
+   
+                <td>@driver.UserName</td>
+                <td>@driver.Email</td>
+                <td>@driver.LicenseNumber</td>
+                <td>@driver.LicenseExpiryDate.ToShortDateString()</td>
+                <td>
+                    <span class="badge-status badge-@driver.DriverStatus.ToString().ToLower()">
+                        @{
+                            var statusText = driver.DriverStatus.ToString();
+                            // Add spaces before capital letters for better readability
+                            statusText = System.Text.RegularExpressions.Regex.Replace(statusText, "([a-z])([A-Z])", "$1 $2");
+                            
+                            // Use shorter text for the long status
+                            if (statusText == "Assigned On Scheduled Trip")
+                            {
+                                statusText = "Scheduled Trip";
+                            }
+                        }
+                        @statusText
+                    </span>
+                </td>
+       
+                    <td>
+                        <div class="driver-actions">
+                            <a asp-action="Edit" asp-route-id="@driver.Id" class="btn btn-action edit" title="Edit Driver">
+                                <i class="fas fa-edit"></i>
+                        </a>
+                            <a asp-action="Details" asp-route-id="@driver.Id" class="btn btn-action details" title="View Details">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a asp-action="Timeline" asp-route-id="@driver.Id" class="btn btn-action timeline" title="Driver Timeline">
+                                <i class="fas fa-timeline"></i>
+                        </a>
+                            <button type="button" class="btn btn-action delete" onclick="deleteDriver('@driver.Id', '@driver.UserName')" title="Delete Driver">
+                                <i class="fas fa-trash-alt"></i>
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagination Controls -->
+@if (ViewBag.TotalPages > 1)
+{
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { 
+                        pageNumber = i, 
+                        searchUserName = ViewBag.SearchUserName, 
+                        searchLicense = ViewBag.SearchLicense, 
+                        statusFilter = ViewBag.StatusFilter })">
+                        @i
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
+@section Scripts {
+    <script>
+        function deleteDriver(driverId, driverName) {
+            if (confirm('Are you sure you want to delete driver "' + driverName + '"? This action cannot be undone.')) {
+                // Create a form to submit the deletion
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/Drivers/Delete/' + driverId;
+                
+                // Add anti-forgery token
+                var token = document.querySelector('input[name="__RequestVerificationToken"]');
+                if (token) {
+                    var newToken = token.cloneNode(true);
+                    form.appendChild(newToken);
+                }
+                
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
+}
